@@ -5,28 +5,30 @@ CONTAINER = $(APP_NAME)-container
 
 MVN = mvn
 
+run:
+	mvn spring-boot:run
+
 package:
 	$(MVN) clean package -DskipTests
 
-build: package
-	make docker-build
+build: package docker-build
 
 docker-build:
-	docker buildx build --platform linux/amd64 -t $(IMAGE) .
+	sudo docker buildx build --platform linux/amd64 -t $(IMAGE) .
 
 docker-run:
-	docker run -d \
+	sudo docker run -d \
 		--name $(CONTAINER) \
 		-p 8080:8080 \
 		$(IMAGE)
 
 docker-stop:
-	docker stop $(CONTAINER) || true
-	docker rm $(CONTAINER) || true
+	sudo docker stop $(CONTAINER) || true
+	sudo docker rm $(CONTAINER) || true
 
 docker-logs:
-	docker logs -f $(CONTAINER)
+	sudo docker logs -f $(CONTAINER)
 
 clean:
 	$(MVN) clean
-	docker rmi $(IMAGE) || true
+	sudo docker rmi $(IMAGE) || true
