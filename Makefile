@@ -6,7 +6,7 @@ CONTAINER = $(APP_NAME)-container
 MVN = mvn
 
 run:
-	mvn spring-boot:run
+	$(MVN) spring-boot:run
 
 package:
 	$(MVN) clean package -DskipTests

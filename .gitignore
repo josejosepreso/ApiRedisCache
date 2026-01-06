@@ -33,3 +33,5 @@ build/
 .vscode/
 
 *.csv
+
+src/main/resources/*.json
