@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.indianpharma.catalog.dto.UserLoginRequestDto;
 import com.indianpharma.catalog.dto.UserRegisterRequestDto;
 import com.indianpharma.catalog.util.AuthService;
 import com.indianpharma.catalog.util.ErrorResponse;
@@ -20,8 +21,12 @@ public class AuthController {
 	private AuthService authService;
 
 	@PostMapping("/login")
-	public String login() {
-		return null;
+	public ResponseEntity<?> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
+		try { return ResponseEntity.ok(this.authService.login(userLoginRequestDto)); }
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body(new ErrorResponse(e.getMessage()));
+		}
 	}
 
 	@PostMapping("/register")

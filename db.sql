@@ -24,10 +24,11 @@ CREATE TABLE users.Users (
 	email NVARCHAR(255) NOT NULL UNIQUE,
 	first_name NVARCHAR(100) NOT NULL,
 	last_name NVARCHAR(100) NOT NULL,
-	active BIT NOT NULL
+	active BIT NOT NULL,
+	admin BIT NOT NULL
 );
 
-CREATE PROCEDURE users.USER_INSERT
+CREATE OR ALTER PROCEDURE users.USER_INSERT
     @email NVARCHAR(255),
     @first_name NVARCHAR(100),
     @last_name NVARCHAR(100),
@@ -36,8 +37,8 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO users.Users (email, first_name, last_name, active)
-    VALUES (@email, @first_name, @last_name, @active);
+    INSERT INTO users.Users (email, first_name, last_name, active, admin)
+    VALUES (@email, @first_name, @last_name, @active, 0);
 
     SELECT SCOPE_IDENTITY() AS user_id;
 END;
