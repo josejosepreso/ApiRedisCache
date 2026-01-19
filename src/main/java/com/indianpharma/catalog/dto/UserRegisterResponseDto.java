@@ -7,4 +7,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public final class UserRegisterResponseDto { private int userId; }
+public final class UserRegisterResponseDto {
+    private int userId;
+}

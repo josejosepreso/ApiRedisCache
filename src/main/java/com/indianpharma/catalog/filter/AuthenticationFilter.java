@@ -23,18 +23,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtil jwtUtil;
-    
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException
-    {
-		final String authHeader = request.getHeader("Authorization");
+            throws ServletException, IOException {
+        final String authHeader = request.getHeader("Authorization");
 
-		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-			return;
-		}
-        
+            return;
+        }
+
         final String token = authHeader.substring(7);
 
         final Optional<String> email = this.jwtUtil.getEmail(token);
@@ -46,7 +45,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         final List<GrantedAuthority> authorities = this.jwtUtil.getAuthorities(token);
 
-        final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.get(), null, authorities);
+        final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.get(), null,
+                authorities);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -58,6 +58,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String path = request.getServletPath();
 
         return path.startsWith("/api/auth/")
-            || path.startsWith("/api/catalog/all");
+                || path.startsWith("/api/catalog/all");
     }
 }

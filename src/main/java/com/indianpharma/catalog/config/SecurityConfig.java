@@ -17,15 +17,15 @@ public class SecurityConfig {
 
 	@Autowired
 	private AuthenticationFilter authenticationFilter;
-	
+
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		return http
-			.csrf(csrf -> csrf.disable())
-			.authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/catalog").hasRole("ADMIN")
-                .anyRequest().permitAll())
-			.addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-			.build();
+				.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(HttpMethod.POST, "/api/catalog").hasRole("ADMIN")
+						.anyRequest().permitAll())
+				.addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+				.build();
 	}
 }

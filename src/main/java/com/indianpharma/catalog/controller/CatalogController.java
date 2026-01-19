@@ -23,19 +23,21 @@ public class CatalogController {
 
 	@GetMapping("/all")
 	public ResponseEntity<?> catalog() {
-		try { return ResponseEntity.ok(this.catalogService.getAll()); }
-		catch(Exception e) {
+		try {
+			return ResponseEntity.ok(this.catalogService.getAll());
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body(new ErrorResponse(e.getMessage()));
+					.body(new ErrorResponse(e.getMessage()));
 		}
 	}
 
 	@PostMapping
 	public ResponseEntity<?> createProduct(@RequestBody ProductCreateRequestDto productCreateRequestDto) {
-		try { return ResponseEntity.ok(this.catalogService.create(productCreateRequestDto)); }
-		catch(Exception e) {
+		try {
+			return ResponseEntity.ok(this.catalogService.create(productCreateRequestDto));
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body(new ErrorResponse(e.getMessage()));
+					.body(new ErrorResponse(e.getMessage()));
 		}
 	}
 }
