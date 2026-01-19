@@ -16,4 +16,8 @@ public class Database {
 	public ResultSet executeQuery(String sql) throws SQLException {
 		return this.connection.prepareStatement(sql).executeQuery();
 	}
+
+	public int executeInsert(String sql) throws SQLException {
+		return this.connection.prepareStatement(sql).executeUpdate();
+	}
 }

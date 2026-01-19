@@ -1,5 +1,6 @@
 package com.indianpharma.catalog.service;
 
+import com.indianpharma.catalog.dto.ProductCreateRequestDto;
 import com.indianpharma.catalog.model.Product;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class CatalogService {
 	private Database database;
 
 	public List<Product> getAll() throws SQLException {
-		final ResultSet rs = this.database.executeQuery("select * from catalog.products");
+		final ResultSet rs = this.database.executeQuery("select * from sch_catalog.products");
 
 		final List<Product> products = new ArrayList<>();
 
@@ -46,5 +47,74 @@ public class CatalogService {
 		}
 
 		return products;
+	}
+
+	public Product create(ProductCreateRequestDto dto) throws SQLException, Exception {
+		final Product product = Product.builder()
+			.brandName(dto.getBrandName())
+			.manufacturer(dto.getManufacturer())
+			.priceInr(dto.getPriceInr())
+			.isDiscontinued(dto.isDiscontinued())
+			.dosageForm(dto.getDosageForm())
+			.packSize(dto.getPackSize())
+			.packUnit(dto.getPackUnit())
+			.numActiveIngredients(dto.getNumActiveIngredients())
+			.primaryIngredient(dto.getPrimaryIngredient())
+			.primaryStrength(dto.getPrimaryStrength())
+			.activeIngredients(dto.getActiveIngredients())
+			.therapeuticClass(dto.getTherapeuticClass())
+			.packagingRaw(dto.getPackagingRaw())
+			.manufacturerRaw(dto.getManufacturerRaw())
+			.build();
+
+		final String sql = String.format(
+			"""
+			INSERT INTO sch_catalog.products (
+        		brand_name,
+        		manufacturer,
+        		price_inr,
+        		is_discontinued,
+        		dosage_form,
+        		pack_size,
+        		pack_unit,
+        		num_active_ingredients,
+        		primary_ingredient,
+        		primary_strength,
+        		active_ingredients,
+        		therapeutic_class,
+        		packaging_raw,
+        		manufacturer_raw
+			) VALUES (
+				'%s', '%s', %s, %s, '%s', %s, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s'
+			);
+			""",
+			product.getBrandName(),
+			product.getManufacturer(),
+			product.getPriceInr(),
+			product.isDiscontinued() ? 1 : 0,
+			product.getDosageForm(),
+			product.getPackSize(),
+			product.getPackUnit(),
+			product.getNumActiveIngredients(),
+			product.getPrimaryIngredient(),
+			product.getPrimaryStrength(),
+			product.getActiveIngredients(),
+			product.getTherapeuticClass(),
+			product.getPackagingRaw(),
+			product.getManufacturerRaw()
+		);
+
+		if (this.database.executeInsert(sql) < 1) {
+			throw new Exception("Failed to create product.");
+		}
+
+		final ResultSet rs = this.database.executeQuery("select max(product_id) as id from sch_catalog.products");
+
+		rs.next();
+		assert rs.isLast();
+
+		product.setProductId(rs.getInt("id"));
+
+		return product;
 	}
 }

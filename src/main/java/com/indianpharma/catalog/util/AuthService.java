@@ -36,7 +36,7 @@ public class AuthService {
 		final UserRecord userRecord = this.firebaseService.registerUserFirebase(dto.getEmail(), dto.getPassword());
 
 		final String sql = String.format(
-			"EXEC users.USER_INSERT '%s', '%s', '%s', %s",
+			"EXEC sch_users.USER_INSERT '%s', '%s', '%s', %s",
 			userRecord.getEmail(),
 			dto.getFirstName(),
 			dto.getLastName(),
@@ -72,7 +72,7 @@ public class AuthService {
 					last_name,
 					active,
 					admin
-			from users.users
+			from sch_users.users
 			where email = '%s'
 			""",
 			userLogin.getEmail()
