@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: IndianPharmaCatalog
+
+server:
+  port: 8080
+
+db:
+  url: ${INDIAN_PHARMA_DB_URL}
+  username: ${INDIAN_PHARMA_DB_USERNAME}
+  password: ${INDIAN_PHARMA_DB_PASSWORD}
+
+firebase:
+  api:
+    key: ${FIREBASE_API_KEY}
+  secret: ${FIRE_BASE_INDIAN_PHARMA_SECRET_KEY}
+
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+
+redis:
+  key: ${REDIS_CACHE_PRIMARY_ACCESS_KEY}

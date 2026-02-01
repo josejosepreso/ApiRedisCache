@@ -23,9 +23,9 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
-        InputStream credentials = new ByteArrayInputStream(this.privateKey.getContentAsByteArray());
+        final InputStream credentials = new ByteArrayInputStream(this.privateKey.getContentAsByteArray());
 
-        FirebaseOptions firebaseOptions = FirebaseOptions.builder()
+        final FirebaseOptions firebaseOptions = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(credentials))
                 .build();
 

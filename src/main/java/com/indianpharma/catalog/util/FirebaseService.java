@@ -15,7 +15,7 @@ public class FirebaseService {
     private FirebaseAuth firebaseAuth;
 
     public UserRecord registerUserFirebase(String email, String password) throws FirebaseAuthException {
-        CreateRequest req = new CreateRequest();
+        final CreateRequest req = new CreateRequest();
         req.setEmail(email);
         req.setPassword(password);
         req.setEmailVerified(Boolean.TRUE);

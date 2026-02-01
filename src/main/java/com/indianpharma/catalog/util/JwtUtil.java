@@ -34,8 +34,7 @@ public class JwtUtil {
 		this.jwtDuration = Duration.ofMinutes(Configuration.JWT_EXPIRATION_DURATION);
 	}
 
-	public String generateToken(String firstName, String lastName, String email, boolean active, boolean admin)
-			throws Exception {
+	public String generateToken(String firstName, String lastName, String email, boolean active, boolean admin) throws Exception {
 		return Jwts.builder()
 				.subject(email)
 				.claim("firstName", firstName)

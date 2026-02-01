@@ -14,7 +14,7 @@ public class PublicController {
 
 	@GetMapping
 	public ResponseEntity<?> home() {
-		final Map<String, String> m = new HashMap<>();
+		final var m = new HashMap<>();
 		m.put("hello", "world");
 
 		return ResponseEntity.ok(m);

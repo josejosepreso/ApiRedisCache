@@ -15,7 +15,8 @@ public class ConnectionConfig {
 	public Connection connection(
 			@Value("${db.url}") String url,
 			@Value("${db.username}") String username,
-			@Value("${db.password}") String password) {
+			@Value("${db.password}") String password
+	) {
 		try {
 			return DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {

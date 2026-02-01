@@ -45,8 +45,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         final List<GrantedAuthority> authorities = this.jwtUtil.getAuthorities(token);
 
-        final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.get(), null,
-                authorities);
+        final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email.get(), null, authorities);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 

@@ -1,12 +1,8 @@
 package com.indianpharma.catalog.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
+@lombok.Getter
+@lombok.Setter
+@lombok.AllArgsConstructor
 public final class UserRegisterRequestDto {
     private final String email;
     private final String password;
